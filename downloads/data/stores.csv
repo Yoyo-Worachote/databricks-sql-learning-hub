@@ -1,0 +1,7 @@
+﻿store_id,store_name,province,region,store_type,open_date
+S01,สาขาสุขุมวิท,กรุงเทพฯ,Bangkok,Mall,2019-05-01
+S02,สาขาบางนา,กรุงเทพฯ,Bangkok,Mall,2020-08-15
+S03,สาขาเชียงใหม่,เชียงใหม่,North,Street,2021-03-01
+S04,สาขาขอนแก่น,ขอนแก่น,Northeast,Street,2022-11-20
+S05,สาขาภูเก็ต,ภูเก็ต,South,Mall,2026-03-01
+S06,สาขาหาดใหญ่,สงขลา,South,Street,2026-06-01

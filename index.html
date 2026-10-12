@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Databricks SQL Learning Hub</title>
+  <meta name="description" content="เรียน SQL บน Databricks เป็นภาษาไทย ตั้งแต่ศูนย์จนใช้งานจริง พร้อมคลังสูตร SQL ที่ค้นหาได้ แบบฝึกหัด และเฉลย">
+  <meta name="color-scheme" content="light dark">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c2410c'/%3E%3Cpath d='M9 11h14M9 16h14M9 21h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip-link" href="#app">ข้ามไปยังเนื้อหาหลัก</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#/" aria-label="Databricks SQL Learning Hub หน้าแรก">
+        <span class="brand-mark" aria-hidden="true">SQL</span>
+        <span class="brand-text"><strong>Databricks SQL</strong> Learning Hub</span>
+      </a>
+      <button id="menu-btn" class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="เปิดเมนู">☰</button>
+      <nav id="site-nav" class="site-nav" aria-label="เมนูหลัก">
+        <a href="#/" data-nav="home">หน้าแรก</a>
+        <a href="#/lessons" data-nav="lessons">บทเรียน</a>
+        <a href="#/formulas" data-nav="formulas">คลังสูตร SQL</a>
+        <a href="#/exercises" data-nav="exercises">แบบฝึกหัด</a>
+        <a href="#/reference/dataset" data-nav="reference">ชุดข้อมูลและอ้างอิง</a>
+      </nav>
+      <form class="top-search" role="search" data-search-form>
+        <label for="top-q" class="sr-only">ค้นหาทั้งเว็บไซต์ (กด / เพื่อค้นหา)</label>
+        <input id="top-q" type="search" name="q" placeholder="ค้นหา… (กด /)" autocomplete="off">
+      </form>
+      <button id="theme-btn" class="icon-btn" type="button" aria-label="เปลี่ยนธีม">🌙</button>
+    </div>
+  </header>
+  <main id="app" tabindex="-1">
+    <div class="page narrow"><p>กำลังโหลด…</p></div>
+  </main>
+  <footer class="site-footer">
+    <p>Databricks SQL Learning Hub · ใช้ข้อมูลจำลองทั้งหมด ไม่มีข้อมูลบริษัทหรือลูกค้าจริง ·
+      <a href="#/reference/about">เกี่ยวกับเนื้อหาและข้อจำกัด</a> · <a href="#/reference/glossary">คำศัพท์</a></p>
+  </footer>
+  <div id="live" class="sr-only" aria-live="polite"></div>
+  <script src="assets/js/sql-highlight.js"></script>
+  <script src="assets/js/markdown.js"></script>
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+{
+  "site": {
+    "title": "Databricks SQL Learning Hub",
+    "description": "ศูนย์เรียนรู้ SQL บน Databricks สำหรับทีมงานคนไทย เรียนได้ด้วยตัวเองตั้งแต่ไม่มีพื้นฐาน จนเขียน Query ดึง ตรวจสอบ สรุป และเปรียบเทียบข้อมูลยอดขายสำหรับงานจริงได้ พร้อมคลังสูตร SQL ที่ค้นหาได้จากสิ่งที่อยากทำ",
+    "exerciseCount": 55,
+    "exampleSearches": [
+      "หาสินค้า Top 3 ของแต่ละร้าน",
+      "คำนวณยอดขายรายเดือน",
+      "หาข้อมูลซ้ำ",
+      "เปรียบเทียบยอดขายกับปีก่อน",
+      "จัดอันดับสินค้าภายในแต่ละร้าน",
+      "หาลูกค้าที่ไม่มีรายการสั่งซื้อ",
+      "รวมข้อมูลจากหลายตาราง"
+    ]
+  },
+  "levels": [
+    { "id": "beginner", "name": "Beginner", "th": "เริ่มต้น", "title": "ปูพื้นฐาน: อ่านข้อมูลจากตารางเดียว", "desc": "สำหรับผู้ไม่มีพื้นฐาน รู้จัก Databricks และตาราง เลือก กรอง เรียง และจัดการค่าว่างได้" },
+    { "id": "intermediate", "name": "Intermediate", "th": "กลาง", "title": "สรุปและรวมข้อมูลหลายตาราง", "desc": "สรุปตัวเลขด้วย GROUP BY รวมหลายตารางด้วย JOIN / UNION แบ่ง Query เป็นขั้นด้วย CTE และเข้าใจลำดับการทำงานของ SQL" },
+    { "id": "workplace", "name": "Advanced / Workplace", "th": "ใช้งานจริง", "title": "เทคนิคสำหรับงานจริง", "desc": "Window Function จัดอันดับ Top N วันที่ ข้อความ ตรวจคุณภาพข้อมูล วิเคราะห์ยอดขาย เปรียบเทียบช่วงเวลา แก้ Error และเขียน SQL ให้ดูแลง่าย" }
+  ],
+  "lessons": [
+    {
+      "id": "sql-databricks-basics", "no": 1, "level": "beginner", "minutes": 20,
+      "title": "พื้นฐาน SQL และ Databricks",
+      "summary": "SQL คืออะไร Databricks และ SQL Warehouse ทำหน้าที่อะไร และเริ่มรัน Query แรกใน SQL Editor อย่างไร",
+      "objectives": ["อธิบายได้ว่า SQL, Query, Databricks และ SQL Warehouse คืออะไร", "เปิด SQL Editor เลือก SQL Warehouse และ Schema ได้", "รัน Query แรกและอ่านผลลัพธ์ได้", "รู้ว่า Databricks SQL ต่างจาก SQL ระบบอื่นในเรื่องใดบ้าง"],
+      "prereq": [], "source": "SQL Handbook Module 0 (แนวคิด, ขั้นตอนใน Databricks), ภาคผนวก ง", "formulas": [],
+      "keywords": ["sql editor", "sql warehouse", "query", "databricks", "unity catalog", "notebook", "power bi"],
+      "file": "content/lessons/01-sql-databricks-basics.md"
+    },
+    {
+      "id": "data-structure", "no": 2, "level": "beginner", "minutes": 30,
+      "title": "Database, Schema, Table, Row และ Column",
+      "summary": "รู้จักโครงสร้างข้อมูล ชนิดข้อมูล และชุดข้อมูลฝึกร้านค้าปลีก พร้อมคำสั่งสำรวจตาราง SHOW TABLES, DESCRIBE และ LIMIT",
+      "objectives": ["อธิบาย Catalog > Schema > Table > Row / Column ได้", "อ่านชนิดข้อมูล (Data Type) เช่น STRING, INT, DECIMAL, DATE, TIMESTAMP ได้", "สำรวจตารางด้วย SHOW TABLES, DESCRIBE TABLE, SELECT ... LIMIT และ COUNT(*)", "รู้จักตารางทั้ง 7 ตารางในชุดข้อมูลฝึก และกรณีพิเศษที่ใส่ไว้"],
+      "prereq": ["sql-databricks-basics"], "source": "SQL Handbook Module 0 และหัวข้อชุดข้อมูลฝึก", "formulas": ["f-select-columns"],
+      "keywords": ["catalog", "schema", "table", "row", "column", "data type", "describe", "show tables", "ชนิดข้อมูล", "ตาราง", "แถว", "คอลัมน์"],
+      "file": "content/lessons/02-data-structure.md"
+    },
+    {
+      "id": "select-from-alias", "no": 3, "level": "beginner", "minutes": 35,
+      "title": "SELECT, FROM และ Alias",
+      "summary": "เลือกเฉพาะคอลัมน์ที่ต้องการ ตั้งชื่อคอลัมน์ด้วย AS สร้างคอลัมน์คำนวณ และจัดรูปแบบ Query ให้อ่านง่าย",
+      "objectives": ["เขียน SELECT ... FROM ... ดึงคอลัมน์ที่ต้องการได้", "ตั้งชื่อคอลัมน์และชื่อย่อตาราง (Alias) ด้วย AS", "สร้างคอลัมน์คำนวณด้วย + - * /", "หลีกเลี่ยงความผิดพลาดเรื่องจุลภาคและเครื่องหมายคำพูด"],
+      "prereq": ["data-structure"], "source": "SQL Handbook Module 1", "formulas": ["f-select-columns"],
+      "keywords": ["select", "from", "as", "alias", "ชื่อเล่น", "คอลัมน์คำนวณ", "backtick"],
+      "file": "content/lessons/03-select-from-alias.md"
+    },
+    {
+      "id": "where-filtering", "no": 4, "level": "beginner", "minutes": 35,
+      "title": "WHERE และการกรองข้อมูล",
+      "summary": "คัดเฉพาะแถวที่ต้องการด้วย WHERE และตัวเปรียบเทียบ = <> > < >= <= รวมถึงการกรองช่วงวันที่ให้ครบทั้งเดือน",
+      "objectives": ["อธิบายได้ว่า WHERE ตรวจเงื่อนไขทีละแถว", "ใช้ตัวเปรียบเทียบกับข้อความ ตัวเลข และวันที่ได้ถูกต้อง", "กรองช่วงวันที่แบบ >= วันเริ่ม และ < วันถัดไป", "ตรวจจำนวนแถวก่อนและหลังกรอง"],
+      "prereq": ["select-from-alias"], "source": "SQL Handbook Module 2", "formulas": ["f-where-basic", "f-date-range-filter"],
+      "keywords": ["where", "filter", "กรอง", "เงื่อนไข", "ตัวเปรียบเทียบ", "date literal"],
+      "file": "content/lessons/04-where-filtering.md"
+    },
+    {
+      "id": "and-or-in-between-like", "no": 5, "level": "beginner", "minutes": 40,
+      "title": "AND, OR, IN, BETWEEN และ LIKE",
+      "summary": "รวมหลายเงื่อนไขอย่างถูกต้องด้วยวงเล็บ เลือกจากรายการด้วย IN กำหนดช่วงด้วย BETWEEN และค้นหาตามรูปแบบด้วย LIKE / ILIKE",
+      "objectives": ["รวมเงื่อนไขด้วย AND, OR, NOT และใส่วงเล็บให้ถูกลำดับ", "ใช้ IN / NOT IN แทน OR หลายตัว", "ใช้ BETWEEN และรู้ว่ารวมค่าปลายทั้งสองด้าน", "ค้นหาด้วย LIKE, % และ _ และใช้ ILIKE ใน Databricks"],
+      "prereq": ["where-filtering"], "source": "SQL Handbook Module 2", "formulas": ["f-in-between-like", "f-where-basic"],
+      "keywords": ["and", "or", "not", "in", "not in", "between", "like", "ilike", "วงเล็บ", "wildcard"],
+      "file": "content/lessons/05-and-or-in-between-like.md"
+    },
+    {
+      "id": "null-case-when", "no": 6, "level": "beginner", "minutes": 45,
+      "title": "NULL และ CASE WHEN",
+      "summary": "เข้าใจค่า NULL ตรวจด้วย IS NULL แทนค่าว่างด้วย COALESCE เปลี่ยนค่าเป็น NULL ด้วย NULLIF และสร้างกลุ่มหรือป้ายกำกับด้วย CASE WHEN",
+      "objectives": ["อธิบายความหมายของ NULL และตรรกะ 3 ค่า (true / false / unknown)", "ใช้ IS NULL / IS NOT NULL แทน = NULL", "ใช้ COALESCE และ NULLIF ได้ถูกสถานการณ์", "เขียน CASE WHEN เรียงเงื่อนไขถูกลำดับและมี ELSE เสมอ"],
+      "prereq": ["and-or-in-between-like"], "source": "SQL Handbook Module 2 (IS NULL, NOT IN) และ Module 3 (CASE WHEN, COALESCE)", "formulas": ["f-is-null", "f-coalesce-nullif", "f-case-when"],
+      "keywords": ["null", "is null", "coalesce", "nullif", "case when", "else", "ค่าว่าง", "label", "กลุ่ม"],
+      "file": "content/lessons/06-null-case-when.md"
+    },
+    {
+      "id": "distinct-orderby-limit", "no": 7, "level": "beginner", "minutes": 35,
+      "title": "DISTINCT, ORDER BY และ LIMIT",
+      "summary": "หาค่าที่ไม่ซ้ำ เรียงผลลัพธ์หลายระดับ กำหนดตำแหน่ง NULL และหา Top N ของทั้งตารางด้วย ORDER BY + LIMIT",
+      "objectives": ["ใช้ DISTINCT กับหนึ่งหรือหลายคอลัมน์", "เรียงข้อมูลด้วย ORDER BY ASC/DESC หลายคอลัมน์ และ NULLS FIRST/LAST", "หา Top N ด้วย ORDER BY + LIMIT พร้อมตัวตัดสินเมื่อค่าเท่ากัน", "รู้ว่า LIMIT ที่ไม่มี ORDER BY ไม่รับประกันว่าได้แถวไหน"],
+      "prereq": ["null-case-when"], "source": "SQL Handbook Module 1 (DISTINCT, LIMIT) และ Module 3 (ORDER BY)", "formulas": ["f-distinct", "f-order-by", "f-top-n"],
+      "keywords": ["distinct", "order by", "asc", "desc", "limit", "nulls first", "nulls last", "top n", "เรียง", "ไม่ซ้ำ"],
+      "file": "content/lessons/07-distinct-orderby-limit.md"
+    },
+    {
+      "id": "aggregate-functions", "no": 8, "level": "intermediate", "minutes": 40,
+      "title": "Aggregate Functions: COUNT, SUM, AVG, MIN, MAX",
+      "summary": "ยุบหลายแถวให้เหลือตัวเลขสรุป เข้าใจความต่างของ COUNT แต่ละแบบ ผลของ NULL ต่อค่าเฉลี่ย และคำนวณเปอร์เซ็นต์แบบไม่ Error",
+      "objectives": ["ใช้ SUM, COUNT, AVG, MIN, MAX ได้ถูกต้อง", "แยก COUNT(*), COUNT(column) และ COUNT(DISTINCT column)", "อธิบายผลของ NULL ต่อ AVG และ SUM", "คำนวณ % ด้วย * 100.0 / NULLIF(ตัวหาร, 0) หรือ try_divide"],
+      "prereq": ["distinct-orderby-limit"], "source": "SQL Handbook Module 4", "formulas": ["f-count-variants", "f-safe-percentage"],
+      "keywords": ["aggregate", "sum", "count", "avg", "min", "max", "count distinct", "หารด้วยศูนย์", "divide by zero", "nullif", "try_divide", "เปอร์เซ็นต์"],
+      "file": "content/lessons/08-aggregate-functions.md"
+    },
+    {
+      "id": "group-by-having", "no": 9, "level": "intermediate", "minutes": 45,
+      "title": "GROUP BY และ HAVING",
+      "summary": "สรุปตัวเลขเป็นกลุ่ม เช่น ยอดขายต่อสาขา กรองผลสรุปด้วย HAVING และสร้างยอดรวมแบบมีเงื่อนไขในแถวเดียว",
+      "objectives": ["สรุปข้อมูลด้วย GROUP BY หนึ่งหรือหลายคอลัมน์", "รู้กฎ: คอลัมน์ใน SELECT ที่ไม่ได้สรุปต้องอยู่ใน GROUP BY", "เลือกใช้ WHERE หรือ HAVING ได้ถูกที่", "ทำยอดรวมแบบมีเงื่อนไขด้วย SUM(CASE WHEN ...)"],
+      "prereq": ["aggregate-functions"], "source": "SQL Handbook Module 4", "formulas": ["f-group-by-sum", "f-having", "f-conditional-sum"],
+      "keywords": ["group by", "having", "where vs having", "missing_aggregation", "group by all", "pivot", "สรุป", "จัดกลุ่ม"],
+      "file": "content/lessons/09-group-by-having.md"
+    },
+    {
+      "id": "joins", "no": 10, "level": "intermediate", "minutes": 60,
+      "title": "JOIN: รวมข้อมูลจากหลายตาราง",
+      "summary": "จับคู่แถวระหว่างตารางด้วย Key ครบทุกประเภทที่ใช้บ่อย INNER, LEFT, RIGHT, FULL OUTER, CROSS, SEMI/ANTI พร้อมวิธีตรวจว่าแถวไม่หายและไม่เพิ่มผิด ๆ",
+      "objectives": ["อธิบาย Primary Key / Foreign Key และหลักการจับคู่แถว", "เลือก INNER / LEFT / FULL OUTER JOIN ให้ตรงกับคำถาม", "หาแถวที่ไม่มีคู่ด้วย LEFT JOIN ... IS NULL, NOT EXISTS หรือ LEFT ANTI JOIN", "ตรวจจำนวนแถวก่อนและหลัง JOIN และป้องกัน Fan-out"],
+      "prereq": ["group-by-having"], "source": "SQL Handbook Module 5", "formulas": ["f-inner-join", "f-left-join", "f-anti-join", "f-multi-table-join", "f-full-outer-join"],
+      "keywords": ["join", "inner join", "left join", "right join", "full outer join", "cross join", "anti join", "semi join", "primary key", "foreign key", "fan-out", "รวมตาราง", "หลายตาราง", "vlookup"],
+      "file": "content/lessons/10-joins.md"
+    },
+    {
+      "id": "union", "no": 11, "level": "intermediate", "minutes": 25,
+      "title": "UNION และ UNION ALL",
+      "summary": "ต่อผลลัพธ์หลาย Query เป็นแนวตั้ง เช่น รวมข้อมูลปีเก่ากับปีปัจจุบัน และเข้าใจความต่างของ UNION, UNION ALL, EXCEPT และ INTERSECT",
+      "objectives": ["อธิบายความต่างระหว่าง JOIN (ต่อแนวนอน) กับ UNION (ต่อแนวตั้ง)", "ใช้ UNION ALL รวมข้อมูลหลายช่วงเวลา", "รู้ว่า UNION ตัดแถวซ้ำและช้ากว่า", "ระวังลำดับและชนิดของคอลัมน์ให้ตรงกัน"],
+      "prereq": ["joins"], "source": "SQL Handbook Module 5 (ตัวอย่าง 5.7) และเนื้อหาเพิ่มเติม", "formulas": ["f-union-all"],
+      "keywords": ["union", "union all", "except", "intersect", "ต่อแถว", "รวมแนวตั้ง", "archive"],
+      "file": "content/lessons/11-union.md"
+    },
+    {
+      "id": "subquery-cte", "no": 12, "level": "intermediate", "minutes": 45,
+      "title": "Subquery และ Common Table Expression (CTE)",
+      "summary": "ซ้อน Query ใน Query และแบ่ง Query ยาวเป็นขั้นตอนที่ตั้งชื่อได้ด้วย WITH เพื่อให้อ่าน ตรวจ และแก้ไขง่าย",
+      "objectives": ["ใช้ Subquery ใน WHERE (Scalar Subquery) และใน FROM", "เขียน CTE หลายขั้นด้วย WITH ... AS (...)", "ไล่ตรวจ Query ทีละขั้น", "เลี่ยงข้อผิดพลาด เช่น ใส่ ; หลัง CTE"],
+      "prereq": ["union"], "source": "SQL Handbook Module 7", "formulas": ["f-cte", "f-scalar-subquery", "f-subquery-from"],
+      "keywords": ["subquery", "cte", "with", "exists", "not exists", "scalar subquery", "แบ่งขั้นตอน", "query ซ้อน"],
+      "file": "content/lessons/12-subquery-cte.md"
+    },
+    {
+      "id": "logical-query-order", "no": 13, "level": "intermediate", "minutes": 35,
+      "title": "ลำดับการประมวลผลของ SQL (Logical Query Processing Order)",
+      "summary": "ลำดับที่เราเขียนไม่ใช่ลำดับที่ SQL คิด เข้าใจแบบจำลอง FROM → WHERE → GROUP BY → HAVING → SELECT → DISTINCT → ORDER BY → LIMIT แล้วจะเข้าใจ Error ที่พบบ่อยเกือบทั้งหมด",
+      "objectives": ["เรียงลำดับเชิงตรรกะของ SELECT Query ได้", "อธิบายว่าทำไม WHERE ใช้ SUM หรือ Alias จาก SELECT ไม่ได้", "อธิบายว่าทำไมกรองผล Window Function ใน WHERE ชั้นเดียวกันไม่ได้ และต้องใช้ CTE / Subquery หรือ QUALIFY", "แยกลำดับเชิงตรรกะกับแผนการทำงานจริง (Physical Plan)"],
+      "prereq": ["subquery-cte"], "source": "SQL Handbook หัวข้อ 'ลำดับการทำงานของ SQL' และเนื้อหาเพิ่มเติม", "formulas": ["f-having", "f-top-n-per-group", "f-qualify"],
+      "keywords": ["logical query processing order", "ลำดับการทำงาน", "execution order", "where vs having", "alias", "window function where", "physical plan", "qualify"],
+      "file": "content/lessons/13-logical-query-order.md"
+    },
+    {
+      "id": "window-functions", "no": 14, "level": "workplace", "minutes": 50,
+      "title": "Window Functions",
+      "summary": "คำนวณโดยมองแถวข้างเคียงโดยไม่ยุบแถว ทั้งยอดสะสม ค่าเฉลี่ยเคลื่อนที่ สัดส่วนต่อยอดรวม และดึงค่าแถวก่อนหน้า/ถัดไปด้วย LAG/LEAD",
+      "objectives": ["อธิบายความต่างระหว่าง Window Function กับ GROUP BY", "เขียน OVER (PARTITION BY ... ORDER BY ...) ได้", "คำนวณยอดสะสม ค่าเฉลี่ยเคลื่อนที่ และสัดส่วนต่อยอดรวม", "ใช้ LAG / LEAD เทียบกับแถวก่อนหน้าหรือถัดไป"],
+      "prereq": ["logical-query-order"], "source": "SQL Handbook Module 8", "formulas": ["f-running-total", "f-moving-average", "f-share-of-total", "f-lag-lead"],
+      "keywords": ["window function", "over", "partition by", "running total", "ยอดสะสม", "moving average", "lag", "lead", "rows between", "สัดส่วน"],
+      "file": "content/lessons/14-window-functions.md"
+    },
+    {
+      "id": "ranking-functions", "no": 15, "level": "workplace", "minutes": 35,
+      "title": "ROW_NUMBER, RANK และ DENSE_RANK",
+      "summary": "จัดอันดับข้อมูลทั้งตารางและภายในกลุ่ม เข้าใจผลที่ต่างกันเมื่อค่าเท่ากัน และเลือกฟังก์ชันให้ตรงกติกาทางธุรกิจ",
+      "objectives": ["จัดอันดับด้วย ROW_NUMBER, RANK, DENSE_RANK", "อธิบายผลของแต่ละฟังก์ชันเมื่อค่าเท่ากัน (1,2,3 / 1,1,3 / 1,1,2)", "ใช้ PARTITION BY เพื่อเริ่มนับอันดับใหม่ในแต่ละกลุ่ม", "เพิ่มตัวตัดสิน (Tie-breaker) ให้ผลลัพธ์คงที่"],
+      "prereq": ["window-functions"], "source": "SQL Handbook Module 8 (ตัวอย่าง 8.1)", "formulas": ["f-ranking-compare", "f-top-n-per-group"],
+      "keywords": ["row_number", "rank", "dense_rank", "จัดอันดับ", "อันดับ", "ค่าเท่ากัน", "tie", "tie-breaker"],
+      "file": "content/lessons/15-ranking-functions.md"
+    },
+    {
+      "id": "top-n-per-group", "no": 16, "level": "workplace", "minutes": 45,
+      "title": "Top N ต่อกลุ่ม: Top 3 Products per Store",
+      "summary": "บทเรียนแบบละเอียดทีละขั้น หาสินค้าขายดี 3 อันดับแรกของแต่ละร้านด้วย ROW_NUMBER() ใน CTE แล้วกรองในชั้นนอก พร้อมวิธีจัดการยอดขายที่เท่ากัน",
+      "objectives": ["อธิบายทุกส่วนของ ROW_NUMBER() OVER (PARTITION BY store_id ORDER BY total_net DESC, product_id)", "เห็นว่าข้อมูลเปลี่ยนอย่างไรในแต่ละขั้นของ Query", "อธิบายเหตุผลที่ต้องกรอง rn <= 3 ใน Query ชั้นนอก", "เลือก ROW_NUMBER, RANK หรือ DENSE_RANK ตามกติกาเมื่อยอดขายเท่ากัน"],
+      "prereq": ["ranking-functions"], "source": "SQL Handbook Module 8 (ตัวอย่าง 8.2) ขยายเป็นบทเรียนเต็ม", "formulas": ["f-top-n-per-group", "f-ranking-compare", "f-qualify"],
+      "keywords": ["top 3", "top n", "top n per group", "สินค้าขายดี", "ร้าน", "สาขา", "row_number", "partition by store_id", "rn <= 3"],
+      "file": "content/lessons/16-top-n-per-group.md"
+    },
+    {
+      "id": "date-time", "no": 17, "level": "workplace", "minutes": 50,
+      "title": "Date และ Time Functions",
+      "summary": "ทำงานกับ DATE และ TIMESTAMP ดึงส่วนของวันที่ ปัดเป็นต้นเดือนด้วย DATE_TRUNC แปลงข้อความเป็นวันที่ นับจำนวนวัน และเลื่อนเดือน",
+      "objectives": ["แยก DATE, TIMESTAMP และวันที่ที่เก็บเป็นข้อความ", "ใช้ YEAR, MONTH, DAYOFMONTH, DATE_TRUNC, DATE_FORMAT", "แปลงข้อความเป็นวันที่ด้วย TO_DATE / try_to_timestamp", "ใช้ DATEDIFF, DATE_ADD, ADD_MONTHS, LAST_DAY และกรองช่วงเวลาไม่ตกหล่น"],
+      "prereq": ["top-n-per-group"], "source": "SQL Handbook Module 6", "formulas": ["f-date-parts", "f-date-range-filter", "f-parse-date-text", "f-datediff-addmonths", "f-monthly-sales"],
+      "keywords": ["date", "timestamp", "date_trunc", "year", "month", "to_date", "try_to_timestamp", "datediff", "add_months", "date_format", "วันที่", "เวลา", "รายเดือน"],
+      "file": "content/lessons/17-date-time.md"
+    },
+    {
+      "id": "string-numeric", "no": 18, "level": "workplace", "minutes": 40,
+      "title": "String และ Numeric Functions",
+      "summary": "จัดการข้อความด้วย TRIM, UPPER, LOWER, CONCAT, SUBSTRING, REPLACE, LENGTH และจัดการตัวเลขด้วย ROUND, FLOOR, CEIL, ABS, DIV และการแปลงชนิดอย่างปลอดภัย",
+      "objectives": ["ทำความสะอาดและแปลงรูปแบบข้อความ", "ตัด ต่อ และค้นหาข้อความ", "ปัดเศษและคำนวณตัวเลขได้ถูกต้อง", "แปลงข้อความเป็นตัวเลขด้วย CAST / TRY_CAST"],
+      "prereq": ["date-time"], "source": "SQL Handbook Module 3 (ตัวอย่าง 3.6), Module 9 (ตัวอย่าง 9.6) และเนื้อหาเพิ่มเติม", "formulas": ["f-string-clean", "f-string-functions", "f-numeric-functions", "f-try-cast-number"],
+      "keywords": ["string", "trim", "upper", "lower", "concat", "substring", "replace", "length", "lpad", "split", "round", "floor", "ceil", "abs", "cast", "try_cast", "ข้อความ", "ตัวเลข"],
+      "file": "content/lessons/18-string-numeric.md"
+    },
+    {
+      "id": "data-quality", "no": 19, "level": "workplace", "minutes": 50,
+      "title": "ข้อมูลซ้ำและการตรวจสอบคุณภาพข้อมูล",
+      "summary": "ตรวจข้อมูลก่อนส่งรายงาน: นับแถว หา Key ซ้ำ นับ NULL หาค่าผิดปกติและ Key ที่หาคู่ไม่เจอ ตัดแถวซ้ำอย่างถูกวิธี และกระทบยอดก่อน/หลังทำความสะอาด",
+      "objectives": ["หาข้อมูลซ้ำด้วย GROUP BY ... HAVING COUNT(*) > 1", "นับ NULL และติดธงค่าผิดปกติด้วย CASE WHEN", "ตัดแถวซ้ำด้วย DISTINCT หรือ ROW_NUMBER ให้เหมาะกับสถานการณ์", "ทำ Reconciliation ยืนยันตัวเลขก่อนส่งรายงาน"],
+      "prereq": ["string-numeric"], "source": "SQL Handbook Module 9", "formulas": ["f-find-duplicates", "f-remove-duplicates", "f-null-profile", "f-outlier-flag", "f-reconciliation", "f-anti-join"],
+      "keywords": ["data quality", "duplicate", "ข้อมูลซ้ำ", "null", "outlier", "orphan", "reconciliation", "กระทบยอด", "count_if", "ตรวจสอบข้อมูล"],
+      "file": "content/lessons/19-data-quality.md"
+    },
+    {
+      "id": "business-analytics", "no": 20, "level": "workplace", "minutes": 50,
+      "title": "การวิเคราะห์ยอดขายและข้อมูลทางธุรกิจ",
+      "summary": "คำนวณ Net Sales, COGS, Gross Profit และ GP% อย่างถูกต้อง กำหนด Grain ของ Dataset ป้องกันยอดซ้ำจาก JOIN และเตรียมข้อมูลให้ Power BI / Excel",
+      "objectives": ["คำนวณยอดขาย ต้นทุน กำไรขั้นต้น และ GP% จากผลรวม", "กำหนด Grain ของ Dataset ก่อนเขียน Query", "ป้องกันยอดซ้ำจากการ JOIN ตารางที่ Key ซ้ำ", "เตรียม Query หรือ View สำหรับ Power BI"],
+      "prereq": ["data-quality"], "source": "SQL Handbook Module 10", "formulas": ["f-gross-profit", "f-powerbi-dataset", "f-monthly-sales", "f-share-of-total"],
+      "keywords": ["net sales", "cogs", "gross profit", "gp%", "grain", "power bi", "view", "dataset", "กำไร", "ยอดขาย", "ต้นทุน"],
+      "file": "content/lessons/20-business-analytics.md"
+    },
+    {
+      "id": "period-comparison", "no": 21, "level": "workplace", "minutes": 50,
+      "title": "เปรียบเทียบยอดขายรายวัน รายเดือน และปีก่อน",
+      "summary": "ทำยอดขายรายวันให้ครบทุกวัน เทียบวันก่อน (DoD) เดือนก่อน (MoM) และเดือนเดียวกันของปีก่อน (YoY) อย่างถูกต้องแม้ข้อมูลบางช่วงขาดหาย",
+      "objectives": ["สร้างยอดขายรายวันครบทุกวันด้วยตาราง calendar", "คำนวณ MoM ด้วย LAG", "คำนวณ YoY ด้วยการ JOIN เดือนเดียวกันของปีก่อน (ADD_MONTHS -12)", "เทียบสองช่วงเวลาในแถวเดียวด้วย SUM(CASE WHEN ...)"],
+      "prereq": ["business-analytics"], "source": "SQL Handbook Module 8 (8.4), Module 10 (10.2), Workshop โจทย์ 3 และ 9 และเนื้อหาเพิ่มเติมเรื่อง YoY", "formulas": ["f-daily-sales-calendar", "f-mom-growth", "f-yoy-comparison", "f-period-compare", "f-lag-lead"],
+      "keywords": ["yoy", "mom", "dod", "เปรียบเทียบ", "ปีก่อน", "เดือนก่อน", "วันก่อน", "growth", "เติบโต", "calendar", "ช่วงเวลา"],
+      "file": "content/lessons/21-period-comparison.md"
+    },
+    {
+      "id": "sql-errors", "no": 22, "level": "workplace", "minutes": 40,
+      "title": "การอ่านและแก้ไข SQL Error",
+      "summary": "อ่านรหัส Error ของ Databricks แล้วรู้ทันทีว่าผิดตรงไหน พร้อมตัวอย่าง Error ที่พบบ่อยและขั้นตอนไล่หาข้อผิดพลาด 5 ขั้น รวมถึงกรณีไม่มี Error แต่ตัวเลขผิด",
+      "objectives": ["อ่านรหัส Error ในวงเล็บเหลี่ยม เช่น [UNRESOLVED_COLUMN] และตำแหน่งที่ชี้", "แก้ Error ที่พบบ่อย 10 แบบได้", "ไล่หาข้อผิดพลาดใน Query ยาวทีละขั้น", "ตรวจกรณีที่ Query รันผ่านแต่ผลลัพธ์ผิด"],
+      "prereq": ["period-comparison"], "source": "SQL Handbook ภาคผนวก ค และตัวอย่าง 'ผิดบ่อย' ทุก Module", "formulas": [],
+      "keywords": ["error", "แก้ error", "ข้อผิดพลาด", "unresolved_column", "table_or_view_not_found", "parse_syntax_error", "missing_aggregation", "ambiguous_reference", "divide_by_zero", "cast_invalid_input", "debug"],
+      "file": "content/lessons/22-sql-errors.md"
+    },
+    {
+      "id": "readable-sql", "no": 23, "level": "workplace", "minutes": 30,
+      "title": "แนวทางเขียน SQL ให้อ่านง่ายและดูแลรักษาได้",
+      "summary": "มาตรฐานการจัดรูปแบบ การตั้งชื่อ การเขียน Comment และการแบ่งขั้นตอน ที่ทำให้เพื่อนร่วมทีม (และตัวเราในอนาคต) อ่านและแก้ Query ได้ง่าย",
+      "objectives": ["จัดรูปแบบ Query ตามมาตรฐานเดียวกันทั้งทีม", "ตั้งชื่อ Alias, CTE และคอลัมน์ให้สื่อความหมาย", "เขียน Comment อธิบายเหตุผลทางธุรกิจและ Grain", "ปรับ Query ที่อ่านยากให้อ่านง่าย (Refactor)"],
+      "prereq": ["sql-errors"], "source": "SQL Handbook Module 7 (หลักการจัดรูปแบบ) และเนื้อหาเพิ่มเติม", "formulas": ["f-cte"],
+      "keywords": ["style guide", "format", "จัดรูปแบบ", "ตั้งชื่อ", "comment", "snake_case", "refactor", "อ่านง่าย", "maintain"],
+      "file": "content/lessons/23-readable-sql.md"
+    },
+    {
+      "id": "query-performance", "no": 24, "level": "workplace", "minutes": 35,
+      "title": "พื้นฐานการเพิ่มประสิทธิภาพ Query",
+      "summary": "หลักง่าย ๆ ที่ทำให้ Query เร็วขึ้นและประหยัดทรัพยากรบน Databricks: เลือกเฉพาะคอลัมน์ กรองให้เร็ว ไม่ครอบฟังก์ชันที่คอลัมน์วันที่ สรุปก่อน JOIN และอ่าน EXPLAIN / Query Profile",
+      "objectives": ["อธิบายว่าอะไรทำให้ Query ช้าบน Databricks", "ใช้หลัก 7 ข้อในการเขียน Query ให้เร็วขึ้น", "อ่าน EXPLAIN และ Query Profile เบื้องต้น", "รู้ข้อจำกัด: ไม่ใช่ทุกเทคนิคจะเห็นผลกับตารางเล็ก"],
+      "prereq": ["readable-sql"], "source": "SQL Handbook Module 10 (Performance, EXPLAIN) และเนื้อหาเพิ่มเติม", "formulas": ["f-date-range-filter", "f-powerbi-dataset"],
+      "keywords": ["performance", "ประสิทธิภาพ", "เร็ว", "ช้า", "explain", "query profile", "data skipping", "partition", "select *", "optimize"],
+      "file": "content/lessons/24-query-performance.md"
+    },
+    {
+      "id": "workshop-project", "no": 25, "level": "workplace", "minutes": 120,
+      "title": "Workshop และโปรเจกต์จำลองการใช้งานจริง",
+      "summary": "วิธีคิด 6 ขั้นจากคำถามธุรกิจสู่ Query ที่ตรวจสอบได้ ฝึกกับโจทย์งานจริง 10 ข้อ และโปรเจกต์รายงานยอดขายไตรมาส 1",
+      "objectives": ["แปลงคำถามทางธุรกิจเป็น Query ด้วยวิธีคิด 6 ขั้น", "เลือกตาราง วิธี JOIN และ Grain ให้ตรงกับโจทย์", "ตรวจสอบผลลัพธ์ก่อนส่งทุกครั้ง", "ทำโปรเจกต์รายงานยอดขายไตรมาสได้ครบทุกส่วน"],
+      "prereq": ["query-performance"], "source": "SQL Handbook Module 11, ภาคผนวก ข และเอกสาร Final Project", "formulas": ["f-reconciliation", "f-powerbi-dataset", "f-top-n-per-group"],
+      "keywords": ["workshop", "project", "final project", "โจทย์", "งานจริง", "รายงาน", "ไตรมาส"],
+      "file": "content/lessons/25-workshop-project.md"
+    }
+  ],
+  "formulaCategories": [
+    { "id": "select-filter", "name": "SELECT และ Filtering", "desc": "เลือกคอลัมน์ ตั้งชื่อ คำนวณ และคัดแถวด้วยเงื่อนไข" },
+    { "id": "sort-limit", "name": "Sorting และ Limiting", "desc": "หาค่าไม่ซ้ำ เรียงลำดับ และตัดจำนวนแถว" },
+    { "id": "aggregation", "name": "Aggregation", "desc": "นับ รวม เฉลี่ย สรุปตามกลุ่ม และคำนวณเปอร์เซ็นต์" },
+    { "id": "join", "name": "JOIN และ UNION", "desc": "รวมข้อมูลจากหลายตารางทั้งแนวนอนและแนวตั้ง" },
+    { "id": "case-null", "name": "CASE WHEN และ NULL", "desc": "สร้างป้ายกำกับตามเงื่อนไข และจัดการค่าว่าง" },
+    { "id": "subquery-cte", "name": "Subquery และ CTE", "desc": "ซ้อน Query และแบ่ง Query เป็นขั้นตอนที่อ่านง่าย" },
+    { "id": "window", "name": "Window Functions", "desc": "ยอดสะสม ค่าเฉลี่ยเคลื่อนที่ สัดส่วน และค่าของแถวก่อนหน้า" },
+    { "id": "ranking", "name": "Ranking และ Top N", "desc": "จัดอันดับทั้งตารางและภายในกลุ่ม หา Top N ต่อกลุ่ม" },
+    { "id": "date-time", "name": "Date และ Time", "desc": "ดึงส่วนของวันที่ แปลงข้อความ นับวัน และกรองช่วงเวลา" },
+    { "id": "string-numeric", "name": "String และ Numeric Functions", "desc": "ทำความสะอาดข้อความ ตัดต่อข้อความ ปัดเศษ และแปลงชนิดข้อมูล" },
+    { "id": "data-quality", "name": "Data Quality", "desc": "หาข้อมูลซ้ำ ค่าว่าง ค่าผิดปกติ และกระทบยอด" },
+    { "id": "business", "name": "Business Analytics", "desc": "ยอดขาย กำไร เปรียบเทียบช่วงเวลา และ Dataset สำหรับ Power BI" }
+  ],
+  "formulas": [
+    { "id": "f-select-columns", "category": "select-filter", "level": "beginner", "title": "เลือกคอลัมน์ ตั้งชื่อ และสร้างคอลัมน์คำนวณ", "summary": "SELECT เฉพาะคอลัมน์ที่ต้องใช้ ตั้งชื่อผลลัพธ์ด้วย AS และคำนวณค่าใหม่ทีละแถว", "keywords": ["select", "from", "as", "alias", "calculated column", "คอลัมน์คำนวณ", "ตั้งชื่อคอลัมน์"], "intents": ["เลือกเฉพาะบางคอลัมน์", "ตั้งชื่อคอลัมน์ใหม่", "คำนวณกำไรต่อชิ้น"], "related": ["f-where-basic", "f-distinct", "f-numeric-functions"], "file": "content/formulas/f-select-columns.md" },
+    { "id": "f-where-basic", "category": "select-filter", "level": "beginner", "title": "กรองแถวด้วย WHERE", "summary": "เก็บเฉพาะแถวที่เงื่อนไขเป็นจริง ใช้ตัวเปรียบเทียบกับข้อความ ตัวเลข และวันที่", "keywords": ["where", "filter", "=", "<>", ">=", "กรอง", "เงื่อนไข"], "intents": ["กรองข้อมูลเฉพาะสาขา", "กรองยอดขายมากกว่า", "เลือกเฉพาะแถวที่ต้องการ"], "related": ["f-in-between-like", "f-date-range-filter", "f-is-null"], "file": "content/formulas/f-where-basic.md" },
+    { "id": "f-in-between-like", "category": "select-filter", "level": "beginner", "title": "IN, BETWEEN, LIKE และ ILIKE", "summary": "เลือกค่าจากรายการ กำหนดช่วงค่า และค้นหาข้อความตามรูปแบบ", "keywords": ["in", "not in", "between", "like", "ilike", "%", "_", "wildcard", "ค้นหาข้อความ"], "intents": ["กรองหลายค่า", "ค้นหาชื่อสินค้าที่มีคำว่า", "ช่วงราคา"], "related": ["f-where-basic", "f-is-null", "f-string-functions"], "file": "content/formulas/f-in-between-like.md" },
+    { "id": "f-distinct", "category": "sort-limit", "level": "beginner", "title": "หาค่าที่ไม่ซ้ำด้วย DISTINCT", "summary": "ดูว่ามีค่าอะไรบ้างในคอลัมน์ หรือคู่ค่าที่ไม่ซ้ำจากหลายคอลัมน์", "keywords": ["distinct", "unique", "ไม่ซ้ำ", "ค่าที่มี"], "intents": ["มีค่าอะไรบ้าง", "ดูรายการหมวดสินค้าที่ไม่ซ้ำ"], "related": ["f-count-variants", "f-find-duplicates", "f-order-by"], "file": "content/formulas/f-distinct.md" },
+    { "id": "f-order-by", "category": "sort-limit", "level": "beginner", "title": "เรียงลำดับหลายคอลัมน์และกำหนดตำแหน่ง NULL", "summary": "ORDER BY ASC/DESC หลายระดับ และ NULLS FIRST / NULLS LAST", "keywords": ["order by", "asc", "desc", "nulls last", "nulls first", "sort", "เรียง"], "intents": ["เรียงจากมากไปน้อย", "เรียงหลายคอลัมน์", "ให้ค่าว่างอยู่ท้าย"], "related": ["f-top-n", "f-distinct"], "file": "content/formulas/f-order-by.md" },
+    { "id": "f-top-n", "category": "sort-limit", "level": "beginner", "title": "Top N ทั้งตาราง (ORDER BY + LIMIT)", "summary": "หา N รายการที่มีค่าสูงสุดหรือต่ำสุดของทั้งตาราง พร้อมตัวตัดสินเมื่อค่าเท่ากัน", "keywords": ["top n", "limit", "order by", "สูงสุด", "ต่ำสุด", "อันดับแรก"], "intents": ["หารายการขาย 5 อันดับสูงสุด", "top 10 ทั้งบริษัท"], "related": ["f-top-n-per-group", "f-order-by", "f-ranking-compare"], "file": "content/formulas/f-top-n.md" },
+    { "id": "f-count-variants", "category": "aggregation", "level": "intermediate", "title": "COUNT(*), COUNT(column) และ COUNT(DISTINCT)", "summary": "นับแถวทั้งหมด นับเฉพาะที่มีค่า และนับค่าที่ไม่ซ้ำ พร้อม SUM, AVG, MIN, MAX", "keywords": ["count", "count distinct", "sum", "avg", "min", "max", "นับ", "จำนวนลูกค้า", "aggregate"], "intents": ["นับจำนวนลูกค้าไม่ซ้ำ", "นับจำนวนแถว", "หายอดรวมทั้งตาราง"], "related": ["f-group-by-sum", "f-null-profile", "f-safe-percentage"], "file": "content/formulas/f-count-variants.md" },
+    { "id": "f-group-by-sum", "category": "aggregation", "level": "intermediate", "title": "สรุปยอดตามกลุ่มด้วย GROUP BY", "summary": "ได้ 1 แถวต่อ 1 กลุ่ม เช่น ยอดขายสุทธิ จำนวนรายการ และจำนวนลูกค้าต่อสาขา", "keywords": ["group by", "sum", "สรุปยอด", "ยอดต่อสาขา", "pivot table", "group by all"], "intents": ["ยอดขายแต่ละสาขา", "สรุปยอดตามหมวด", "ยอดขายตามวิธีชำระเงิน"], "related": ["f-having", "f-conditional-sum", "f-count-variants"], "file": "content/formulas/f-group-by-sum.md" },
+    { "id": "f-having", "category": "aggregation", "level": "intermediate", "title": "กรองผลสรุปด้วย HAVING", "summary": "กรองกลุ่มหลังสรุป เช่น สาขาที่ยอดรวมเกิน 2,500 บาท และความต่างจาก WHERE", "keywords": ["having", "where vs having", "กรองหลังสรุป", "invalid_where_condition"], "intents": ["สาขาที่ยอดขายเกิน", "สินค้าที่ขายรวมเกิน 40 ชิ้น"], "related": ["f-group-by-sum", "f-find-duplicates"], "file": "content/formulas/f-having.md" },
+    { "id": "f-conditional-sum", "category": "aggregation", "level": "intermediate", "title": "ผลรวมแบบมีเงื่อนไข SUM(CASE WHEN ...)", "summary": "แยกยอดตามเงื่อนไขเป็นหลายคอลัมน์ในแถวเดียว (Pivot แบบง่าย)", "keywords": ["sum case when", "conditional aggregation", "pivot", "count_if", "แยกคอลัมน์", "ผลรวมมีเงื่อนไข"], "intents": ["แยกยอดเงินสดกับบัตรเครดิต", "ยอดแต่ละวิธีชำระเป็นคอลัมน์"], "related": ["f-safe-percentage", "f-period-compare", "f-case-when"], "file": "content/formulas/f-conditional-sum.md" },
+    { "id": "f-safe-percentage", "category": "aggregation", "level": "intermediate", "title": "เปอร์เซ็นต์และอัตราส่วนแบบไม่ Error (NULLIF / try_divide)", "summary": "คำนวณ % ด้วย * 100.0 / NULLIF(ตัวหาร, 0) เพื่อเลี่ยง DIVIDE_BY_ZERO", "keywords": ["percentage", "ratio", "nullif", "try_divide", "divide_by_zero", "หารด้วยศูนย์", "เปอร์เซ็นต์", "สัดส่วน"], "intents": ["คำนวณเปอร์เซ็นต์", "หารด้วยศูนย์ error", "สัดส่วนสมาชิก"], "related": ["f-conditional-sum", "f-share-of-total", "f-gross-profit"], "file": "content/formulas/f-safe-percentage.md" },
+    { "id": "f-inner-join", "category": "join", "level": "intermediate", "title": "INNER JOIN จับคู่แถวที่ตรงกันทั้งสองตาราง", "summary": "เติมข้อมูลจากอีกตารางเฉพาะแถวที่จับคู่ได้ และรู้ว่าแถวที่ไม่มีคู่จะหายไป", "keywords": ["inner join", "join", "on", "เชื่อมตาราง", "vlookup", "primary key", "foreign key"], "intents": ["เอาชื่อสินค้ามาใส่ยอดขาย", "เชื่อมสองตาราง"], "related": ["f-left-join", "f-multi-table-join", "f-anti-join"], "file": "content/formulas/f-inner-join.md" },
+    { "id": "f-left-join", "category": "join", "level": "intermediate", "title": "LEFT JOIN เติมข้อมูลโดยไม่ทำแถวหาย", "summary": "เก็บทุกแถวของตารางซ้าย และวางเงื่อนไขของตารางขวาใน ON ให้ถูกที่", "keywords": ["left join", "left outer join", "เก็บทุกแถว", "on vs where", "join ไม่หาย"], "intents": ["แสดงทุกสาขาแม้ไม่มียอดขาย", "join แล้วข้อมูลหาย"], "related": ["f-inner-join", "f-anti-join", "f-multi-table-join"], "file": "content/formulas/f-left-join.md" },
+    { "id": "f-anti-join", "category": "join", "level": "intermediate", "title": "หาสิ่งที่ไม่มีคู่: ลูกค้าที่ไม่มีรายการสั่งซื้อ", "summary": "Anti-join 3 แบบ: LEFT JOIN ... IS NULL, NOT EXISTS และ LEFT ANTI JOIN ของ Databricks พร้อมเหตุผลที่ไม่ควรใช้ NOT IN", "keywords": ["anti join", "left anti join", "not exists", "left join is null", "orphan", "ไม่มีคู่", "ไม่มียอดขาย", "ไม่เคยซื้อ"], "intents": ["หาลูกค้าที่ไม่มีรายการสั่งซื้อ", "หาสินค้าที่ไม่มียอดขาย", "สาขาที่ไม่มียอดขาย", "หารหัสสินค้าที่ไม่มีในตารางสินค้า"], "related": ["f-left-join", "f-full-outer-join", "f-is-null"], "file": "content/formulas/f-anti-join.md" },
+    { "id": "f-multi-table-join", "category": "join", "level": "intermediate", "title": "รวมข้อมูลจากหลายตาราง (JOIN 3 ตาราง)", "summary": "เชื่อม Fact กับ Dimension หลายตารางเพื่อสรุปยอดตามภูมิภาคและหมวด พร้อมวิธีตรวจ Fan-out", "keywords": ["multiple join", "join 3 tables", "fact", "dimension", "fan-out", "หลายตาราง", "รวมข้อมูล"], "intents": ["รวมข้อมูลจากหลายตาราง", "ยอดขายตามภูมิภาคและหมวดสินค้า", "join หลายตาราง"], "related": ["f-left-join", "f-gross-profit", "f-powerbi-dataset"], "file": "content/formulas/f-multi-table-join.md" },
+    { "id": "f-full-outer-join", "category": "join", "level": "intermediate", "title": "FULL OUTER JOIN เทียบรายการสองแหล่ง", "summary": "เก็บทุกแถวจากทั้งสองฝั่ง ใช้หาว่ารายการใดมีเพียงฝั่งเดียว", "keywords": ["full outer join", "full join", "เทียบสองแหล่ง", "reconcile", "มีฝั่งเดียว"], "intents": ["เทียบรายการสองระบบ", "หาว่าอะไรหายไปจากอีกฝั่ง"], "related": ["f-anti-join", "f-reconciliation"], "file": "content/formulas/f-full-outer-join.md" },
+    { "id": "f-union-all", "category": "join", "level": "intermediate", "title": "UNION ALL ต่อข้อมูลหลายตารางแนวตั้ง", "summary": "รวมแถวจากหลาย Query เช่น ข้อมูลปีเก่ากับปีปัจจุบัน และความต่างจาก UNION", "keywords": ["union all", "union", "except", "intersect", "ต่อแถว", "รวมแนวตั้ง", "archive"], "intents": ["รวมข้อมูลปีเก่ากับปีใหม่", "ต่อตารางสองตาราง"], "related": ["f-mom-growth", "f-reconciliation", "f-multi-table-join"], "file": "content/formulas/f-union-all.md" },
+    { "id": "f-case-when", "category": "case-null", "level": "beginner", "title": "CASE WHEN สร้างกลุ่มหรือป้ายกำกับ", "summary": "แบ่งข้อมูลเป็นกลุ่มตามเงื่อนไข เช่น ระดับราคา Low / Medium / High", "keywords": ["case when", "case", "when then else end", "if", "label", "bucket", "กลุ่ม", "ป้าย"], "intents": ["แบ่งกลุ่มราคา", "สร้างคอลัมน์สถานะ", "if else ใน sql"], "related": ["f-conditional-sum", "f-coalesce-nullif", "f-outlier-flag"], "file": "content/formulas/f-case-when.md" },
+    { "id": "f-coalesce-nullif", "category": "case-null", "level": "beginner", "title": "COALESCE และ NULLIF จัดการค่าว่าง", "summary": "แทน NULL ด้วยค่าที่กำหนด และเปลี่ยนค่าที่ไม่ต้องการ (เช่น 0 หรือข้อความว่าง) ให้เป็น NULL", "keywords": ["coalesce", "nullif", "ifnull", "nvl", "แทนค่าว่าง", "ข้อความว่าง", "null"], "intents": ["แทนค่าว่างด้วย Unknown", "เปลี่ยน null เป็น 0", "ข้อความว่างให้เป็น null"], "related": ["f-is-null", "f-case-when", "f-safe-percentage"], "file": "content/formulas/f-coalesce-nullif.md" },
+    { "id": "f-is-null", "category": "case-null", "level": "beginner", "title": "หาค่าว่างด้วย IS NULL (และกับดัก NOT IN)", "summary": "ทำไม = NULL ได้ 0 แถว และทำไม NOT IN ทำให้แถวที่เป็น NULL หายไป", "keywords": ["is null", "is not null", "= null", "not in null", "ค่าว่าง", "null"], "intents": ["หาแถวที่ไม่มีรหัสลูกค้า", "หาข้อมูลที่ไม่ครบ"], "related": ["f-coalesce-nullif", "f-null-profile", "f-anti-join"], "file": "content/formulas/f-is-null.md" },
+    { "id": "f-cte", "category": "subquery-cte", "level": "intermediate", "title": "CTE หลายขั้นด้วย WITH", "summary": "แบ่ง Query ยาวเป็นขั้นตอนที่ตั้งชื่อได้ อ่านจากบนลงล่าง และตรวจทีละขั้น", "keywords": ["cte", "with", "common table expression", "แบ่งขั้นตอน", "อ่านง่าย"], "intents": ["แบ่ง query เป็นขั้น", "สัดส่วนยอดขายแต่ละสาขา", "query ยาวอ่านยาก"], "related": ["f-subquery-from", "f-scalar-subquery", "f-top-n-per-group"], "file": "content/formulas/f-cte.md" },
+    { "id": "f-scalar-subquery", "category": "subquery-cte", "level": "intermediate", "title": "เทียบกับค่าเฉลี่ยด้วย Scalar Subquery", "summary": "ใช้ Subquery ที่คืนค่าเดียวใน WHERE เช่น สินค้าที่ราคาสูงกว่าค่าเฉลี่ย", "keywords": ["subquery", "scalar subquery", "where in select", "สูงกว่าค่าเฉลี่ย", "query ซ้อน"], "intents": ["หารายการที่สูงกว่าค่าเฉลี่ย", "สินค้าที่ราคาสูงกว่าค่าเฉลี่ย"], "related": ["f-cte", "f-subquery-from", "f-share-of-total"], "file": "content/formulas/f-scalar-subquery.md" },
+    { "id": "f-subquery-from", "category": "subquery-cte", "level": "intermediate", "title": "สรุปสองชั้นด้วย Subquery ใน FROM", "summary": "สรุปข้อมูลระดับหนึ่งก่อน แล้วสรุปต่ออีกชั้น เช่น ยอดขายเฉลี่ยต่อวันของแต่ละสาขา", "keywords": ["subquery in from", "derived table", "สรุปสองชั้น", "ค่าเฉลี่ยต่อวัน"], "intents": ["ยอดขายเฉลี่ยต่อวันของแต่ละสาขา", "เฉลี่ยของผลรวม"], "related": ["f-cte", "f-group-by-sum"], "file": "content/formulas/f-subquery-from.md" },
+    { "id": "f-running-total", "category": "window", "level": "workplace", "title": "ยอดสะสม (Running Total)", "summary": "SUM(...) OVER (ORDER BY ...) รวมยอดตั้งแต่แถวแรกจนถึงแถวปัจจุบัน", "keywords": ["running total", "cumulative sum", "ยอดสะสม", "sum over", "ytd", "mtd"], "intents": ["ยอดขายสะสมรายวัน", "ยอดสะสมตั้งแต่ต้นเดือน"], "related": ["f-moving-average", "f-share-of-total", "f-lag-lead"], "file": "content/formulas/f-running-total.md" },
+    { "id": "f-moving-average", "category": "window", "level": "workplace", "title": "ค่าเฉลี่ยเคลื่อนที่ (Moving Average)", "summary": "AVG(...) OVER (ORDER BY ... ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)", "keywords": ["moving average", "rolling average", "rows between", "ค่าเฉลี่ยเคลื่อนที่", "preceding"], "intents": ["ค่าเฉลี่ย 3 วันล่าสุด", "เกลี่ยกราฟยอดขาย"], "related": ["f-running-total", "f-daily-sales-calendar"], "file": "content/formulas/f-moving-average.md" },
+    { "id": "f-share-of-total", "category": "window", "level": "workplace", "title": "สัดส่วนต่อยอดรวม (% of Total)", "summary": "SUM(...) OVER () หรือ OVER (PARTITION BY ...) เพื่อหาสัดส่วนของแต่ละแถวต่อยอดรวม", "keywords": ["percent of total", "share", "contribution", "sum over", "สัดส่วน", "เปอร์เซ็นต์ของยอดรวม"], "intents": ["สินค้าแต่ละตัวคิดเป็นกี่เปอร์เซ็นต์", "สัดส่วนยอดขายแต่ละสาขา"], "related": ["f-safe-percentage", "f-running-total", "f-cte"], "file": "content/formulas/f-share-of-total.md" },
+    { "id": "f-lag-lead", "category": "window", "level": "workplace", "title": "LAG / LEAD ดึงค่าจากแถวก่อนหน้าหรือถัดไป", "summary": "เทียบค่าปัจจุบันกับแถวก่อนหน้าในลำดับที่กำหนด แยกตามกลุ่มได้", "keywords": ["lag", "lead", "previous row", "next row", "แถวก่อนหน้า", "ผลต่าง"], "intents": ["เทียบกับเดือนก่อน", "ผลต่างจากแถวก่อนหน้า"], "related": ["f-mom-growth", "f-yoy-comparison", "f-running-total"], "file": "content/formulas/f-lag-lead.md" },
+    { "id": "f-ranking-compare", "category": "ranking", "level": "workplace", "title": "ROW_NUMBER vs RANK vs DENSE_RANK", "summary": "จัดอันดับทั้งตารางหรือภายในกลุ่ม และผลที่ต่างกันเมื่อค่าเท่ากัน", "keywords": ["row_number", "rank", "dense_rank", "จัดอันดับ", "อันดับ", "tie", "ค่าเท่ากัน"], "intents": ["จัดอันดับสินค้าภายในแต่ละร้าน", "จัดอันดับยอดขาย", "อันดับเท่ากัน"], "related": ["f-top-n-per-group", "f-top-n", "f-qualify"], "file": "content/formulas/f-ranking-compare.md" },
+    { "id": "f-top-n-per-group", "category": "ranking", "level": "workplace", "title": "Top N ต่อกลุ่ม: สินค้า Top 3 ของแต่ละร้าน", "summary": "จัดอันดับด้วย ROW_NUMBER() OVER (PARTITION BY ...) ใน CTE แล้วกรอง rn <= N ในชั้นนอก", "keywords": ["top n per group", "top 3", "row_number", "partition by", "สินค้าขายดี", "แต่ละร้าน", "แต่ละสาขา", "rn <= 3"], "intents": ["หาสินค้า Top 3 ของแต่ละร้าน", "จัดอันดับสินค้าภายในแต่ละร้าน", "สินค้าขายดี 3 อันดับแรกของแต่ละสาขา", "top n ต่อกลุ่ม"], "related": ["f-ranking-compare", "f-qualify", "f-top-n"], "file": "content/formulas/f-top-n-per-group.md" },
+    { "id": "f-qualify", "category": "ranking", "level": "workplace", "title": "QUALIFY กรองผล Window Function (เฉพาะ Databricks)", "summary": "ทางลัดของ Databricks SQL ที่กรองผล Window Function ได้ใน Query ชั้นเดียว", "keywords": ["qualify", "databricks", "window filter", "กรองอันดับ"], "intents": ["กรอง row_number โดยไม่ใช้ cte", "qualify คืออะไร"], "related": ["f-top-n-per-group", "f-remove-duplicates"], "file": "content/formulas/f-qualify.md" },
+    { "id": "f-date-parts", "category": "date-time", "level": "workplace", "title": "ดึงปี เดือน วัน ชั่วโมง และไตรมาสจากวันที่", "summary": "YEAR, MONTH, DAYOFMONTH, HOUR, QUARTER, DAYOFWEEK และ DATE_FORMAT", "keywords": ["year", "month", "dayofmonth", "hour", "quarter", "dayofweek", "date_format", "extract", "ส่วนของวันที่"], "intents": ["ดึงเดือนจากวันที่", "ยอดขายตามชั่วโมง", "วันในสัปดาห์"], "related": ["f-monthly-sales", "f-datediff-addmonths", "f-parse-date-text"], "file": "content/formulas/f-date-parts.md" },
+    { "id": "f-date-range-filter", "category": "date-time", "level": "beginner", "title": "กรองช่วงวันที่ให้ครบ (>= วันเริ่ม และ < วันถัดไป)", "summary": "กรองทั้งเดือนหรือช่วงเวลาโดยไม่ตกหล่นข้อมูลวันสุดท้าย และดีต่อ Performance", "keywords": ["date range", "between timestamp", "half-open", "ช่วงวันที่", "ทั้งเดือน", "กรองวันที่"], "intents": ["กรองข้อมูลทั้งเดือน", "ข้อมูลวันสุดท้ายหาย", "กรองช่วงวันที่"], "related": ["f-where-basic", "f-date-parts", "f-monthly-sales"], "file": "content/formulas/f-date-range-filter.md" },
+    { "id": "f-parse-date-text", "category": "date-time", "level": "workplace", "title": "แปลงข้อความเป็นวันที่ (TO_DATE / try_to_timestamp)", "summary": "แปลงวันที่ที่เก็บเป็นข้อความหลายรูปแบบ เช่น dd/MM/yyyy โดยไม่ทำให้ Query พัง", "keywords": ["to_date", "try_to_timestamp", "cast as date", "try_cast", "แปลงวันที่", "dd/mm/yyyy", "cannot_parse_timestamp"], "intents": ["แปลงข้อความเป็นวันที่", "วันที่จาก excel", "cannot parse timestamp"], "related": ["f-try-cast-number", "f-date-parts", "f-string-clean"], "file": "content/formulas/f-parse-date-text.md" },
+    { "id": "f-datediff-addmonths", "category": "date-time", "level": "workplace", "title": "นับจำนวนวันและเลื่อนวันที่ (DATEDIFF, DATE_ADD, ADD_MONTHS, LAST_DAY)", "summary": "คำนวณระยะห่างระหว่างวันที่ และหาวันที่ล่วงหน้าหรือย้อนหลัง", "keywords": ["datediff", "date_add", "date_sub", "add_months", "last_day", "current_date", "นับวัน", "เลื่อนเดือน"], "intents": ["นับจำนวนวันระหว่างวันที่", "ย้อนหลัง 30 วัน", "วันสิ้นเดือน"], "related": ["f-date-parts", "f-yoy-comparison"], "file": "content/formulas/f-datediff-addmonths.md" },
+    { "id": "f-string-clean", "category": "string-numeric", "level": "workplace", "title": "ทำความสะอาดข้อความ (TRIM, UPPER, LOWER, REPLACE)", "summary": "ตัดช่องว่าง ปรับตัวพิมพ์ และแทนที่อักขระ เพื่อให้ JOIN และ GROUP BY ถูกต้อง", "keywords": ["trim", "upper", "lower", "replace", "regexp_replace", "ทำความสะอาดข้อความ", "ช่องว่าง", "ตัวพิมพ์"], "intents": ["ตัดช่องว่างหน้าหลัง", "รหัสสาขาตัวพิมพ์เล็กใหญ่ไม่ตรงกัน"], "related": ["f-string-functions", "f-try-cast-number", "f-coalesce-nullif"], "file": "content/formulas/f-string-clean.md" },
+    { "id": "f-string-functions", "category": "string-numeric", "level": "workplace", "title": "ต่อ ตัด และค้นหาข้อความ (CONCAT, SUBSTRING, LENGTH, LPAD, SPLIT)", "summary": "สร้างรหัสผสม ตัดบางส่วนของข้อความ นับความยาว และแยกข้อความ", "keywords": ["concat", "||", "concat_ws", "substring", "left", "length", "lpad", "split", "instr", "ต่อข้อความ", "ตัดข้อความ"], "intents": ["ต่อข้อความสองคอลัมน์", "ตัดตัวอักษรบางส่วน", "เติมเลขศูนย์ข้างหน้า"], "related": ["f-string-clean", "f-in-between-like"], "file": "content/formulas/f-string-functions.md" },
+    { "id": "f-numeric-functions", "category": "string-numeric", "level": "workplace", "title": "ปัดเศษและคำนวณตัวเลข (ROUND, FLOOR, CEIL, ABS, DIV, %)", "summary": "ปัดทศนิยม ปัดขึ้น/ลง ค่าสัมบูรณ์ หารเอาจำนวนเต็มและเศษ และข้อควรรู้เรื่องการหารใน Databricks", "keywords": ["round", "floor", "ceil", "abs", "div", "mod", "%", "ปัดเศษ", "ทศนิยม", "หาร"], "intents": ["ปัดทศนิยม 2 ตำแหน่ง", "หารเอาจำนวนเต็ม", "ปัดขึ้น"], "related": ["f-safe-percentage", "f-try-cast-number"], "file": "content/formulas/f-numeric-functions.md" },
+    { "id": "f-try-cast-number", "category": "string-numeric", "level": "workplace", "title": "แปลงข้อความเป็นตัวเลขอย่างปลอดภัย (CAST / TRY_CAST)", "summary": "แปลงยอดเงินที่เป็นข้อความ เช่น '1,250.00' เป็น DECIMAL และติดธงแถวที่แปลงไม่ได้", "keywords": ["cast", "try_cast", "decimal", "cast_invalid_input", "แปลงชนิด", "ข้อความเป็นตัวเลข"], "intents": ["แปลงข้อความเป็นตัวเลข", "cast invalid input"], "related": ["f-string-clean", "f-parse-date-text", "f-numeric-functions"], "file": "content/formulas/f-try-cast-number.md" },
+    { "id": "f-find-duplicates", "category": "data-quality", "level": "workplace", "title": "หาข้อมูลซ้ำ (Duplicate Key)", "summary": "หา Key ที่ปรากฏมากกว่า 1 ครั้ง แล้วดึงแถวเต็มมาพิสูจน์ว่าซ้ำทั้งแถวหรือไม่", "keywords": ["duplicate", "ข้อมูลซ้ำ", "ซ้ำ", "having count(*) > 1", "key ซ้ำ", "dup"], "intents": ["หาข้อมูลซ้ำ", "หารายการที่ซ้ำกัน", "ตรวจ sale_id ซ้ำ"], "related": ["f-remove-duplicates", "f-having", "f-reconciliation"], "file": "content/formulas/f-find-duplicates.md" },
+    { "id": "f-remove-duplicates", "category": "data-quality", "level": "workplace", "title": "ตัดแถวซ้ำ เก็บ 1 แถวต่อ Key", "summary": "เลือกระหว่าง SELECT DISTINCT * และ ROW_NUMBER() ... = 1 (เช่น เก็บรายการล่าสุด)", "keywords": ["dedup", "remove duplicates", "distinct", "row_number = 1", "ตัดซ้ำ", "latest record", "รายการล่าสุด"], "intents": ["ลบข้อมูลซ้ำ", "เก็บรายการล่าสุดของแต่ละลูกค้า", "ตัดแถวซ้ำ"], "related": ["f-find-duplicates", "f-qualify", "f-reconciliation"], "file": "content/formulas/f-remove-duplicates.md" },
+    { "id": "f-null-profile", "category": "data-quality", "level": "workplace", "title": "นับ NULL ในคอลัมน์สำคัญ (Null Profile)", "summary": "สรุปจำนวนค่าว่างของหลายคอลัมน์ในแถวเดียวด้วย COUNT(*) - COUNT(col) หรือ count_if", "keywords": ["null profile", "count_if", "นับค่าว่าง", "missing", "data profiling"], "intents": ["นับค่าว่างแต่ละคอลัมน์", "ตรวจข้อมูลที่หายไป"], "related": ["f-is-null", "f-count-variants", "f-outlier-flag"], "file": "content/formulas/f-null-profile.md" },
+    { "id": "f-outlier-flag", "category": "data-quality", "level": "workplace", "title": "ติดธงค่าผิดปกติและตรวจสูตร", "summary": "ใช้ CASE WHEN ติดธงรายการรับคืน จำนวนผิดปกติ ยอดติดลบ และยอดที่คำนวณไม่ตรงสูตร", "keywords": ["outlier", "flag", "ค่าผิดปกติ", "ติดธง", "validation", "ยอดติดลบ"], "intents": ["หาค่าผิดปกติ", "ตรวจยอดเงินไม่ตรงสูตร"], "related": ["f-case-when", "f-null-profile", "f-reconciliation"], "file": "content/formulas/f-outlier-flag.md" },
+    { "id": "f-reconciliation", "category": "data-quality", "level": "workplace", "title": "Reconciliation กระทบยอดก่อนและหลังทำความสะอาด", "summary": "แสดงจำนวนแถวและยอดรวมทุกขั้นในตารางเดียว เพื่อพิสูจน์ว่าตัวเลขเปลี่ยนเพราะอะไร", "keywords": ["reconciliation", "กระทบยอด", "ตรวจยอดรวม", "validation", "row count"], "intents": ["ตรวจว่ายอดรวมถูกต้อง", "พิสูจน์ตัวเลขก่อนส่งรายงาน"], "related": ["f-find-duplicates", "f-union-all", "f-outlier-flag"], "file": "content/formulas/f-reconciliation.md" },
+    { "id": "f-gross-profit", "category": "business", "level": "workplace", "title": "Net Sales, COGS, Gross Profit และ GP%", "summary": "คำนวณยอดขาย ต้นทุน และกำไรขั้นต้นจากหลายตาราง และคิด GP% จากผลรวม ไม่ใช่เฉลี่ยรายแถว", "keywords": ["gross profit", "gp%", "cogs", "net sales", "margin", "กำไรขั้นต้น", "ต้นทุน", "กำไร"], "intents": ["คำนวณกำไรขั้นต้น", "gp เปอร์เซ็นต์", "กำไรต่อหมวดสินค้า"], "related": ["f-multi-table-join", "f-safe-percentage", "f-powerbi-dataset"], "file": "content/formulas/f-gross-profit.md" },
+    { "id": "f-monthly-sales", "category": "business", "level": "workplace", "title": "ยอดขายรายเดือน (DATE_TRUNC)", "summary": "สรุปยอดขายเป็นรายเดือนด้วย CAST(DATE_TRUNC('MONTH', date) AS DATE) แยกตามสาขาได้", "keywords": ["monthly sales", "date_trunc", "รายเดือน", "ยอดขายรายเดือน", "month_start", "group by month"], "intents": ["คำนวณยอดขายรายเดือน", "ยอดขายรายเดือนแยกสาขา", "สรุปยอดตามเดือน"], "related": ["f-date-parts", "f-mom-growth", "f-daily-sales-calendar"], "file": "content/formulas/f-monthly-sales.md" },
+    { "id": "f-daily-sales-calendar", "category": "business", "level": "workplace", "title": "ยอดขายรายวันครบทุกวัน (ใช้ตาราง calendar)", "summary": "เริ่มจากตาราง calendar แล้ว LEFT JOIN ยอดขายรายวัน วันที่ไม่มีการขายจะแสดงเป็น 0 ไม่หายไป", "keywords": ["daily sales", "calendar", "date spine", "รายวัน", "ยอดขายรายวัน", "วันที่ไม่มีการขาย", "cross join"], "intents": ["ยอดขายรายวันครบทุกวัน", "แสดงวันที่ไม่มียอดขายเป็น 0", "ยอดขายรายวัน"], "related": ["f-monthly-sales", "f-left-join", "f-moving-average"], "file": "content/formulas/f-daily-sales-calendar.md" },
+    { "id": "f-mom-growth", "category": "business", "level": "workplace", "title": "เทียบยอดขายกับเดือนก่อน (MoM Growth)", "summary": "สรุปรายเดือนใน CTE แล้วใช้ LAG หา ยอดเดือนก่อน ผลต่าง และ % เติบโต", "keywords": ["mom", "month over month", "growth", "lag", "เดือนก่อน", "เติบโต", "เปรียบเทียบรายเดือน"], "intents": ["เปรียบเทียบยอดขายกับเดือนก่อน", "เปอร์เซ็นต์เติบโตรายเดือน"], "related": ["f-yoy-comparison", "f-lag-lead", "f-monthly-sales"], "file": "content/formulas/f-mom-growth.md" },
+    { "id": "f-yoy-comparison", "category": "business", "level": "workplace", "title": "เทียบยอดขายกับปีก่อน (YoY)", "summary": "เทียบเดือนเดียวกันของปีก่อนด้วยการ JOIN ที่ ADD_MONTHS(month_start, -12) ซึ่งถูกต้องแม้บางเดือนขาดหาย", "keywords": ["yoy", "year over year", "ปีก่อน", "ปีที่แล้ว", "เดือนเดียวกันปีก่อน", "add_months -12", "lag 12"], "intents": ["เปรียบเทียบยอดขายกับปีก่อน", "ยอดขายเทียบปีที่แล้ว", "yoy growth"], "related": ["f-mom-growth", "f-datediff-addmonths", "f-period-compare"], "file": "content/formulas/f-yoy-comparison.md" },
+    { "id": "f-period-compare", "category": "business", "level": "workplace", "title": "เทียบสองช่วงเวลาในแถวเดียว", "summary": "ใช้ SUM(CASE WHEN ช่วงเวลา ...) แยกยอดสองช่วงเป็นสองคอลัมน์ แล้วคำนวณผลต่างและ % เติบโต", "keywords": ["period comparison", "this month vs last month", "เทียบช่วงเวลา", "ไตรมาส", "sum case when"], "intents": ["เปรียบเทียบยอดเดือนมีนาคมกับกุมภาพันธ์", "เทียบไตรมาส", "เทียบสองช่วงเวลา"], "related": ["f-conditional-sum", "f-mom-growth", "f-yoy-comparison"], "file": "content/formulas/f-period-compare.md" },
+    { "id": "f-powerbi-dataset", "category": "business", "level": "workplace", "title": "Dataset สำหรับ Power BI (กำหนด Grain)", "summary": "สรุปข้อมูลตาม Grain ที่ชัดเจน JOIN เฉพาะ Dimension ที่ Key ไม่ซ้ำ และส่งคอลัมน์ผลรวมไปคำนวณอัตราส่วนใน Power BI", "keywords": ["power bi", "dataset", "grain", "view", "create view", "dashboard", "excel", "fact table"], "intents": ["เตรียมข้อมูลให้ power bi", "สร้าง view สำหรับรายงาน"], "related": ["f-gross-profit", "f-multi-table-join", "f-reconciliation"], "file": "content/formulas/f-powerbi-dataset.md" }
+  ],
+  "exerciseSets": [
+    { "id": "ex-explore", "level": "beginner", "lesson": "data-structure", "count": 3, "title": "สำรวจข้อมูลใน Databricks", "summary": "ดูข้อมูลทั้งตาราง ตรวจโครงสร้างตาราง และอ่านปัญหาของข้อมูลดิบ", "keywords": ["describe", "show tables", "limit"], "file": "content/exercises/ex-explore.md" },
+    { "id": "ex-select", "level": "beginner", "lesson": "select-from-alias", "count": 3, "title": "SELECT และ FROM", "summary": "เลือกคอลัมน์ หาค่าไม่ซ้ำ และสร้างคอลัมน์คำนวณ", "keywords": ["select", "distinct", "alias"], "file": "content/exercises/ex-select.md" },
+    { "id": "ex-where", "level": "beginner", "lesson": "and-or-in-between-like", "count": 3, "title": "การกรองข้อมูลด้วย WHERE", "summary": "กรองเงื่อนไขเดียว หลายเงื่อนไข ช่วงวันที่ และค่าว่าง", "keywords": ["where", "in", "is null"], "file": "content/exercises/ex-where.md" },
+    { "id": "ex-sort-case", "level": "beginner", "lesson": "distinct-orderby-limit", "count": 3, "title": "เรียงลำดับและ CASE WHEN", "summary": "เรียงข้อมูล หา N รายการแรก และสร้างกลุ่มด้วย CASE WHEN", "keywords": ["order by", "limit", "case when"], "file": "content/exercises/ex-sort-case.md" },
+    { "id": "ex-aggregate", "level": "intermediate", "lesson": "group-by-having", "count": 3, "title": "Aggregation, GROUP BY และ HAVING", "summary": "สรุปยอดตามกลุ่ม กรองผลสรุป และคำนวณสัดส่วน", "keywords": ["group by", "having", "sum case when"], "file": "content/exercises/ex-aggregate.md" },
+    { "id": "ex-join", "level": "intermediate", "lesson": "joins", "count": 3, "title": "JOIN และ UNION", "summary": "เติมข้อมูลจากตารางอื่น แสดงทุกสาขาแม้ไม่มียอด และไม่ให้ยอดหายจาก Key ที่ไม่ตรง", "keywords": ["join", "left join", "coalesce"], "file": "content/exercises/ex-join.md" },
+    { "id": "ex-cte", "level": "intermediate", "lesson": "subquery-cte", "count": 3, "title": "Subquery และ CTE", "summary": "เทียบกับค่าเฉลี่ย สรุปใน CTE แล้วกรอง และ CTE 3 ขั้น", "keywords": ["cte", "subquery"], "file": "content/exercises/ex-cte.md" },
+    { "id": "ex-window", "level": "workplace", "lesson": "top-n-per-group", "count": 3, "title": "Window Functions และการจัดอันดับ", "summary": "DENSE_RANK อันดับ 1 ต่อหมวด และ LAG เทียบเดือนก่อนรายสาขา", "keywords": ["dense_rank", "row_number", "lag"], "file": "content/exercises/ex-window.md" },
+    { "id": "ex-date", "level": "workplace", "lesson": "date-time", "count": 3, "title": "วันที่และเวลา", "summary": "สรุปรายวัน รายเดือนด้วย DATE_TRUNC และแปลงข้อความเป็นวันที่", "keywords": ["date_trunc", "try_to_timestamp"], "file": "content/exercises/ex-date.md" },
+    { "id": "ex-quality", "level": "workplace", "lesson": "data-quality", "count": 3, "title": "ตรวจสอบคุณภาพข้อมูล", "summary": "นับ NULL พิสูจน์แถวซ้ำ และสร้างรายงานคุณภาพข้อมูล 1 แถว", "keywords": ["duplicate", "null", "data quality"], "file": "content/exercises/ex-quality.md" },
+    { "id": "ex-analytics", "level": "workplace", "lesson": "business-analytics", "count": 3, "title": "วิเคราะห์ยอดขายและ Power BI", "summary": "กำไรขั้นต้นรายสาขา Monthly Summary ระดับภูมิภาค และเทียบครึ่งเดือน", "keywords": ["gross profit", "grain", "power bi"], "file": "content/exercises/ex-analytics.md" },
+    { "id": "ex-extra", "level": "workplace", "lesson": "period-comparison", "count": 12, "title": "แบบฝึกหัดเพิ่มเติม (หัวข้อที่เพิ่มใหม่)", "summary": "UNION, ลำดับการทำงานของ SQL, อันดับเมื่อยอดเท่ากัน, YoY, ฟังก์ชันข้อความและตัวเลข, อ่าน Error และ Refactor", "keywords": ["union", "logical order", "rank", "yoy", "string", "error"], "file": "content/exercises/ex-extra.md" },
+    { "id": "ex-workshop", "level": "workplace", "lesson": "workshop-project", "count": 10, "title": "Workshop: โจทย์งานจริง 10 ข้อ", "summary": "จากคำถามธุรกิจสู่ Query ที่ตรวจสอบได้ ไล่จากง่ายไปยาก พร้อมเฉลยเต็มและผลลัพธ์", "keywords": ["workshop", "โจทย์งานจริง"], "file": "content/exercises/ex-workshop.md" }
+  ],
+  "references": [
+    { "id": "dataset", "title": "ชุดข้อมูลฝึก (Practice Dataset)", "summary": "โครงสร้างตาราง ข้อมูลตัวอย่าง กรณีพิเศษที่ใส่ไว้ และไฟล์สำหรับสร้างตารางใน Databricks", "keywords": ["dataset", "sales", "products", "stores", "calendar", "sales_raw", "promotions", "schema", "setup"], "file": "content/reference/dataset.md" },
+    { "id": "quick-reference", "title": "สรุปสูตรย่อ (Cheat Sheet)", "summary": "รูปแบบ SQL ที่ใช้บ่อยในหน้าเดียว พร้อมลิงก์ไปคำอธิบายเต็ม", "keywords": ["cheat sheet", "สรุปสูตร", "quick reference"], "file": "content/reference/quick-reference.md" },
+    { "id": "dialects", "title": "Databricks SQL ต่างจาก SQL อื่นอย่างไร", "summary": "สิ่งที่ต้องระวังเมื่อนำตัวอย่างจาก SQL Server, MySQL หรืออินเทอร์เน็ตมาใช้กับ Databricks", "keywords": ["dialect", "sql server", "mysql", "ansi mode", "แตกต่าง"], "file": "content/reference/dialects.md" },
+    { "id": "glossary", "title": "คำศัพท์ (Glossary)", "summary": "ศัพท์เทคนิคที่ใช้ในหลักสูตร พร้อมความหมายภาษาไทยและตัวอย่าง", "keywords": ["glossary", "คำศัพท์", "ความหมาย"], "file": "content/reference/glossary.md" },
+    { "id": "about", "title": "เกี่ยวกับหลักสูตรและเนื้อหา", "summary": "แหล่งที่มา สิ่งที่ปรับปรุงจากเอกสารเดิม วิธีตรวจความถูกต้อง และข้อจำกัด", "keywords": ["about", "ที่มา", "ข้อจำกัด", "progress"], "file": "content/reference/about.md" }
+  ]
+}

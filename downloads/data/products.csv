@@ -1,0 +1,13 @@
+﻿product_id,product_name,category,brand,unit_cost,list_price,launch_date,is_active
+P001,น้ำดื่ม 600ml,Beverage,FreshCo,4.50,7.00,2020-01-01,True
+P002,ชาเขียว 500ml,Beverage,PureLeaf,12.00,20.00,2021-06-01,True
+P003,กาแฟกระป๋อง 180ml,Beverage,FreshCo,10.00,18.00,2022-03-15,True
+P004,มันฝรั่งทอด 50g,Snack,SnackHub,15.00,25.00,2021-01-10,True
+P005,ขนมปังกรอบ 60g,Snack,SnackHub,8.00,15.00,2023-07-01,True
+P006,ถั่วอบเกลือ 40g,Snack,,18.00,30.00,2024-02-01,True
+P007,สบู่เหลว 450ml,Personal Care,CleanPro,55.00,89.00,2020-05-01,True
+P008,แชมพู 400ml,Personal Care,CleanPro,79.00,129.00,2020-05-01,True
+P009,ยาสีฟัน 160g,Personal Care,CleanPro,35.00,59.00,2022-09-01,True
+P010,น้ำยาล้างจาน 500ml,,HomeMate,22.00,39.00,2023-01-15,True
+P011,ถุงขยะ 30 ใบ,Household,HomeMate,30.00,49.00,2025-11-01,True
+P012,กระดาษทิชชู 6 ม้วน,Household,HomeMate,60.00,99.00,2019-01-01,False
